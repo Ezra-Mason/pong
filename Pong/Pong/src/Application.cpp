@@ -1,24 +1,16 @@
-#include <glad/glad.h> 
-#include <GLFW/glfw3.h>
+#include <glad/glad.h>
+#include "Application.h"
 #include <iostream>
 
-/// <summary>
-/// Callback for GLFW when the window size is updated
-/// </summary>
-/// <param name="window"></param>
-/// <param name="width"></param>
-/// <param name="height"></param>
-void FramebufferSizeCallback(GLFWwindow* window, int width, int height);
-/// <summary>
-/// Handle inputs through GLFW
-/// </summary>
-/// <param name="window"></param>
-void ProcessInput(GLFWwindow* window);
+Application::Application()
+{
+}
 
-const int c_ScreenWidth = 640;
-const int c_ScreenHeight = 480;
+Application::~Application()
+{
+}
 
-int main()
+int Application::Run()
 {
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -57,14 +49,15 @@ int main()
     glfwTerminate();
 
     return 0;
+
 }
 
-void FramebufferSizeCallback(GLFWwindow* window, int width, int height)
+void Application::FramebufferSizeCallback(GLFWwindow* window, int width, int height)
 {
     glViewport(0, 0, width, height);
 }
 
-void ProcessInput(GLFWwindow* window) 
+void Application::ProcessInput(GLFWwindow* window)
 {
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
     {

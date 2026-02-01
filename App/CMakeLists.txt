@@ -10,6 +10,10 @@ add_executable(App)
 
 target_sources(App PRIVATE ${SOURCES})
 
+install(TARGETS App
+    RUNTIME DESTINATION bin
+)
+
 # Match VS filters to directory structure on disk
 source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" FILES ${SOURCES})
 

@@ -1,4 +1,5 @@
-#include <glad/gl.h>
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
 #include "Application.h"
 #include <iostream>
 
@@ -27,7 +28,8 @@ int Application::Run()
 
 	glfwMakeContextCurrent(window);
 
-	if (!((GLADloadproc)glfwGetProcAddress))
+	bool init = (GLADloadproc)glfwGetProcAddress;
+	if (!init)
 	{
 		std::cout << "Failed to initialise GLAD" << std::endl;
 		return -1;
@@ -38,6 +40,10 @@ int Application::Run()
 	//compile the vertex shader
 	unsigned int vertexShaderId;
 	vertexShaderId = (GL_VERTEX_SHADER);
+	if (vertexShaderId == NULL)
+	{
+		return -1;
+	}
 	glShaderSource(vertexShaderId, 1, &m_VertexShaderSource, NULL);
 	glCompileShader(vertexShaderId);
 

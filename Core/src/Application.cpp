@@ -38,7 +38,7 @@ int Application::Run()
 
 	//compile the vertex shader
 	unsigned int vertexShaderId;
-	vertexShaderId = (GL_VERTEX_SHADER);
+	vertexShaderId = glCreateShader(GL_VERTEX_SHADER);
 	glShaderSource(vertexShaderId, 1, &m_VertexShaderSource, NULL);
 	glCompileShader(vertexShaderId);
 

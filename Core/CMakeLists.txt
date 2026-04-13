@@ -4,7 +4,9 @@
 
 set(SOURCES
     include/Application.h
+    include/Shader.h
     src/Application.cpp
+    src/Shader.cpp
 )
 
 add_library(Core STATIC)

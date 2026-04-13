@@ -113,7 +113,7 @@ int Application::Run()
 	glEnableVertexAttribArray(0);
 
 	// render in wireframe mode
-	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 	while (!glfwWindowShouldClose(window))
 	{
@@ -123,6 +123,12 @@ int Application::Run()
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		glUseProgram(shaderProgramId);
+
+		float timeValue = glfwGetTime();
+		float colourValue = sin(timeValue) / 2.0f + 0.5f;
+		int vertexLocation = glGetUniformLocation(shaderProgramId, "ourColour");
+		glUniform4f(vertexLocation, 0.0f, colourValue, 0.0f, 1.0f);
+
 		glBindVertexArray(vertexArrayObject);
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 		glBindVertexArray(0);

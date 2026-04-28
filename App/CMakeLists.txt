@@ -4,6 +4,8 @@
 
 set(SOURCES
     src/main.cpp
+    src/Shaders/shader.vertex.glsl;
+    src/Shaders/shader.fragment.glsl;
 )
 
 add_executable(App)

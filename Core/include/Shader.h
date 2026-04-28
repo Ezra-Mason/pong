@@ -6,6 +6,7 @@ public:
 
 	Shader(const char* vertexPath, const char* fragmentPath);
 	
+	// activate the shader
 	void use();
 
 };

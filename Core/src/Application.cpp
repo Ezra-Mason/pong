@@ -2,6 +2,7 @@
 #include <GLFW/glfw3.h>
 #include "Application.h"
 #include <iostream>
+#include <Shader.h>
 
 Application::Application()
 {
@@ -36,49 +37,7 @@ int Application::Run()
 
 	glfwSetFramebufferSizeCallback(window, FramebufferSizeCallback);
 
-	//compile the vertex shader
-	unsigned int vertexShaderId;
-	vertexShaderId = glCreateShader(GL_VERTEX_SHADER);
-	glShaderSource(vertexShaderId, 1, &m_VertexShaderSource, NULL);
-	glCompileShader(vertexShaderId);
-
-	//verify the shader is successfully compiled
-	int hasCompiled;
-	char infoLog[512];
-	glGetShaderiv(vertexShaderId, GL_COMPILE_STATUS, &hasCompiled);
-	if (!hasCompiled)
-	{
-		glGetShaderInfoLog(vertexShaderId, 512, NULL, infoLog);
-		std::cout << "Failed to compile verted shader\n" << infoLog << std::endl;
-	}
-
-	unsigned int fragmentShaderId;
-	fragmentShaderId = glCreateShader(GL_FRAGMENT_SHADER);
-	glShaderSource(fragmentShaderId, 1, &m_FragmentShaderSource, NULL);
-	glCompileShader(fragmentShaderId);
-
-	glGetShaderiv(fragmentShaderId, GL_COMPILE_STATUS, &hasCompiled);
-	if (!hasCompiled)
-	{
-		glGetShaderInfoLog(fragmentShaderId, 512, NULL, infoLog);
-		std::cout << "Failed to compile fragment shader\n" << infoLog << std::endl;
-	}
-
-	unsigned int shaderProgramId;
-	shaderProgramId = glCreateProgram();
-	glAttachShader(shaderProgramId, vertexShaderId);
-	glAttachShader(shaderProgramId, fragmentShaderId);
-	glLinkProgram(shaderProgramId);
-
-	int hasLinked;
-	glGetProgramiv(shaderProgramId, GL_LINK_STATUS, &hasLinked);
-	if (!hasLinked)
-	{
-		glGetProgramInfoLog(shaderProgramId, 512, NULL, infoLog);
-		std::cout << "Failed to link shader program\n" << infoLog << std::endl;
-	}
-	glDeleteShader(vertexShaderId);
-	glDeleteShader(fragmentShaderId);
+	Shader ourShader("src/Shaders/shader.vs", "src/Shaders/shader.fs");
 
 	float vertices[] = {
 		 0.5f,  0.5f, 0.0f, 1.0f, 0.0f, 0.0f, // top right
@@ -124,12 +83,12 @@ int Application::Run()
 		glClearColor(1.f, 1.f, 1.f, 1.f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		glUseProgram(shaderProgramId);
+		ourShader.use();
 
-		float timeValue = glfwGetTime();
-		float colourValue = sin(timeValue) / 2.0f + 0.5f;
-		int vertexLocation = glGetUniformLocation(shaderProgramId, "ourColour");
-		glUniform4f(vertexLocation, 0.0f, colourValue, 0.0f, 1.0f);
+		//float timeValue = glfwGetTime();
+		//float colourValue = sin(timeValue) / 2.0f + 0.5f;
+		//int vertexLocation = glGetUniformLocation(shaderProgramId, "ourColour");
+		//glUniform4f(vertexLocation, 0.0f, colourValue, 0.0f, 1.0f);
 
 		glBindVertexArray(vertexArrayObject);
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
@@ -142,7 +101,7 @@ int Application::Run()
 	glDeleteVertexArrays(1, &vertexArrayObject);
 	glDeleteBuffers(1, &vertexBufferObject);
 	glDeleteBuffers(1, &elementBufferObject);
-	glDeleteProgram(shaderProgramId);
+	//glDeleteProgram(shaderProgramId);
 
 	glfwTerminate();
 

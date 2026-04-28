@@ -23,21 +23,5 @@ private:
 
 	const int m_ScreenWidth = 640;
 	const int m_ScreenHeight = 480;
-	const char* m_VertexShaderSource = "#version 330 core\n"
-		"layout (location = 0) in vec3 aPos;\n"
-		"layout (location = 1) in vec3 aColour;\n"
-		"out vec3 ourColour;\n"
-		"void main()\n"
-		"{\n"
-		"   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
-		"   ourColour = aColour;\n"
-		"}\0";
-	const char* m_FragmentShaderSource = "#version 330 core\n"
-		"out vec4 FragColor;\n"
-		"in vec4 ourColour;"
-		"void main()\n"
-		"{\n"
-		"    FragColor = ourColour;\n"
-		"}\0";
 };
 

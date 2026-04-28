@@ -37,7 +37,7 @@ int Application::Run()
 
 	glfwSetFramebufferSizeCallback(window, FramebufferSizeCallback);
 
-	Shader ourShader("src/Shaders/shader.vs", "src/Shaders/shader.fs");
+	Shader ourShader("src/Shaders/vertexShader.shader", "src/Shaders/fragmentShader.shader");
 
 	float vertices[] = {
 		 0.5f,  0.5f, 0.0f, 1.0f, 0.0f, 0.0f, // top right
